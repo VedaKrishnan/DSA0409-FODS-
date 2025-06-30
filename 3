@@ -1,0 +1,17 @@
+import numpy as np
+
+house_data = np.array([
+    [3, 2000, 350000],
+    [4, 2500, 450000],
+    [2, 1800, 300000],
+    [3, 2200, 375000]
+])
+
+average_price = np.mean(house_data[:, 2])
+max_sqft_index = np.argmax(house_data[:, 1])
+house_with_max_sqft = house_data[max_sqft_index]
+houses_with_more_than_3_bedrooms = house_data[house_data[:, 0] > 3]
+
+print("Average sale price:", average_price)
+print("House with max square footage:", house_with_max_sqft)
+print("Houses with more than 3 bedrooms:\n", houses_with_more_than_3_bedrooms)
