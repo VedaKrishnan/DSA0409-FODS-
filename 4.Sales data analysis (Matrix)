@@ -1,0 +1,17 @@
+import numpy as np
+sales_data = np.array([
+    [101, 10, 200, 10, 5],
+    [102, 15, 375, 12, 7],
+    [103, 20, 500, 15, 8]
+])
+units_sold = sales_data[:, 1]
+total_revenue_per_product = sales_data[:, 2]
+total_units_sold = np.sum(units_sold)
+total_revenue = np.sum(total_revenue_per_product)
+if total_units_sold > 0:
+    average_price = total_revenue / total_units_sold
+    print(f"\nTotal Units Sold: {total_units_sold}")
+    print(f"Total Revenue: {total_revenue}")
+    print(f"Average Price of all products sold: ${average_price:.2f}")
+else:
+    print("\nNo units were sold in the past month.")
