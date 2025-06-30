@@ -1,0 +1,35 @@
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import LabelEncoder
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, classification_report
+
+data = {
+    'age': [25, 30, 45, 50, 35, 60, 55, 40, 65, 70],
+    'gender': ['Male', 'Female', 'Female', 'Male', 'Male', 'Female', 'Male', 'Female', 'Male', 'Female'],
+    'blood_pressure': [120, 130, 140, 150, 135, 160, 145, 125, 155, 165],
+    'cholesterol': [200, 220, 250, 260, 230, 270, 240, 210, 280, 290],
+    'outcome': ['Good', 'Good', 'Bad', 'Bad', 'Good', 'Bad', 'Bad', 'Good', 'Bad', 'Bad']
+}
+
+df = pd.DataFrame(data)
+
+le_gender = LabelEncoder()
+le_outcome = LabelEncoder()
+df['gender'] = le_gender.fit_transform(df['gender'])
+df['outcome'] = le_outcome.fit_transform(df['outcome'])
+
+X = df[['age', 'gender', 'blood_pressure', 'cholesterol']]
+y = df['outcome']
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+knn = KNeighborsClassifier(n_neighbors=3)
+knn.fit(X_train, y_train)
+y_pred = knn.predict(X_test)
+
+print("Accuracy:", accuracy_score(y_test, y_pred))
+print("Precision:", precision_score(y_test, y_pred))
+print("Recall:", recall_score(y_test, y_pred))
+print("F1 Score:", f1_score(y_test, y_pred))
+print("\nClassification Report:\n", classification_report(y_test, y_pred, target_names=le_outcome.classes_))
