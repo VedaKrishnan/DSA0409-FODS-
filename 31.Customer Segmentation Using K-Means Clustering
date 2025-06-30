@@ -1,0 +1,33 @@
+import pandas as pd
+from sklearn.cluster import KMeans
+from sklearn.preprocessing import StandardScaler
+from sklearn.decomposition import PCA
+import matplotlib.pyplot as plt
+
+data = {
+    'age': [25, 45, 23, 35, 65, 33, 31, 50, 40, 29],
+    'annual_income': [50000, 80000, 32000, 60000, 100000, 58000, 62000, 85000, 72000, 54000],
+    'spending_score': [30, 70, 40, 60, 20, 65, 59, 80, 75, 50]
+}
+
+df = pd.DataFrame(data)
+
+scaler = StandardScaler()
+scaled_data = scaler.fit_transform(df)
+
+kmeans = KMeans(n_clusters=3, random_state=42)
+clusters = kmeans.fit_predict(scaled_data)
+df['segment'] = clusters
+
+pca = PCA(n_components=2)
+reduced_data = pca.fit_transform(scaled_data)
+
+plt.figure(figsize=(8, 6))
+plt.scatter(reduced_data[:, 0], reduced_data[:, 1], c=clusters, cmap='viridis', s=100)
+plt.title("Customer Segments")
+plt.xlabel("PCA Component 1")
+plt.ylabel("PCA Component 2")
+plt.grid(True)
+plt.show()
+
+print(df)
