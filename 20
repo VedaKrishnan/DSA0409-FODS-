@@ -1,0 +1,12 @@
+import pandas as pd
+
+
+df = pd.read_csv('customer_data.csv')
+
+
+q = df['Total Spending'].quantile([0.33, 0.67])
+df['Segment'] = pd.cut(df['Total Spending'], bins=[-1, q[0.33], q[0.67], float('inf')],
+                       labels=['Low Spenders', 'Medium Spenders', 'High Spenders'])
+
+
+print(df.groupby('Segment')['Age'].mean())
