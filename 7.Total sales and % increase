@@ -1,0 +1,12 @@
+import numpy as np
+sales_data = np.array([250000, 275000, 300000, 350000])
+total_sales = np.sum(sales_data)
+percent_increase = ((sales_data[3] - sales_data[0]) / sales_data[0]) * 100
+highest_q = np.argmax(sales_data) + 1
+lowest_q = np.argmin(sales_data) + 1
+avg_growth = np.mean(np.diff(sales_data))
+print("Total Sales for the Year: ₹", total_sales)
+print("Percentage Increase from Q1 to Q4: {:.2f}%".format(percent_increase))
+print("Quarter with Highest Sales: Q{}".format(highest_q))
+print("Quarter with Lowest Sales: Q{}".format(lowest_q))
+print("Average Quarterly Growth: ₹{:.2f}".format(avg_growth))
