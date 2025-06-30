@@ -1,0 +1,12 @@
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.model_selection import train_test_split
+from sklearn.datasets import make_classification
+
+X, y = make_classification(n_samples=100, n_features=4, n_informative=2, n_classes=2)
+k = int(input("Enter value of k: "))
+model = KNeighborsClassifier(n_neighbors=k)
+model.fit(X, y)
+
+features = list(map(float, input("Enter 4 features separated by space: ").split()))
+pred = model.predict([features])
+print("Prediction (0 = No Condition, 1 = Has Condition):", pred[0])
