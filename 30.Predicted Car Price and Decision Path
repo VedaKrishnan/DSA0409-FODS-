@@ -1,0 +1,44 @@
+import pandas as pd
+from sklearn.tree import DecisionTreeRegressor, export_text
+from sklearn.preprocessing import LabelEncoder
+from sklearn.model_selection import train_test_split
+
+data = {
+    'mileage': [30000, 45000, 70000, 25000, 50000, 60000, 10000, 120000, 40000, 90000],
+    'age': [3, 4, 6, 2, 5, 6, 1, 10, 4, 8],
+    'brand': ['Toyota', 'Honda', 'Ford', 'Toyota', 'Ford', 'BMW', 'BMW', 'Honda', 'Toyota', 'Ford'],
+    'engine': ['Petrol', 'Diesel', 'Diesel', 'Petrol', 'Petrol', 'Diesel', 'Petrol', 'Diesel', 'Petrol', 'Diesel'],
+    'price': [15000, 13000, 9000, 16000, 11000, 20000, 25000, 7000, 14000, 8000]
+}
+
+df = pd.DataFrame(data)
+
+le_brand = LabelEncoder()
+le_engine = LabelEncoder()
+df['brand'] = le_brand.fit_transform(df['brand'])
+df['engine'] = le_engine.fit_transform(df['engine'])
+
+X = df[['mileage', 'age', 'brand', 'engine']]
+y = df['price']
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=42)
+
+model = DecisionTreeRegressor(random_state=42)
+model.fit(X_train, y_train)
+
+mileage = float(input("Enter mileage: "))
+age = int(input("Enter age of car in years: "))
+brand_input = input(f"Enter brand {list(le_brand.classes_)}: ")
+engine_input = input(f"Enter engine type {list(le_engine.classes_)}: ")
+
+brand = le_brand.transform([brand_input])[0]
+engine = le_engine.transform([engine_input])[0]
+
+new_car = [[mileage, age, brand, engine]]
+predicted_price = model.predict(new_car)
+
+print("Predicted Price:", predicted_price[0])
+
+tree_rules = export_text(model, feature_names=['mileage', 'age', 'brand', 'engine'])
+print("\nDecision Tree Rules:\n")
+print(tree_rules)
