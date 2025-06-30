@@ -1,0 +1,22 @@
+import pandas as pd
+import numpy as np
+import os
+os.chdir("C:/Users/Avinaash.A/Downloads")
+
+
+df = pd.read_csv("cars_fuel_efficiency.csv")
+
+efficiency = df["FuelEfficiency"].to_numpy()
+models = df["Model"].to_numpy()
+avg_eff = np.mean(efficiency)
+min_eff = np.min(efficiency)
+max_eff = np.max(efficiency)
+top_3_idx = np.argsort(efficiency)[-3:][::-1]
+top_3_models = models[top_3_idx]
+top_3_values = efficiency[top_3_idx]
+print("Average Fuel Efficiency: {:.2f} MPG".format(avg_eff))
+print("\nTop 3 Most Fuel-Efficient Models:")
+for i in range(3):
+    print(f"{top_3_models[i]} - {top_3_values[i]} MPG")
+print("\nUpdated Dataset with Status:\n")
+print(df)
