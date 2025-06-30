@@ -1,0 +1,22 @@
+import pandas as pd
+from collections import Counter
+import re
+
+data = {
+    'review': [
+        "Great product and excellent quality",
+        "Poor quality and bad experience",
+        "Excellent service and great product",
+        "Bad packaging but good product",
+        "Great quality and good value"
+    ]
+}
+
+df = pd.DataFrame(data)
+
+all_words = ' '.join(df['review']).lower()
+words = re.findall(r'\b\w+\b', all_words)
+word_freq = Counter(words)
+
+word_freq = dict(sorted(word_freq.items()))
+print(word_freq)
