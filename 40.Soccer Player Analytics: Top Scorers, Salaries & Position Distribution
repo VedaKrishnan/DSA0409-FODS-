@@ -1,0 +1,35 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+
+data = {
+    'Name': ['Messi', 'Ronaldo', 'Mbappe', 'Neymar', 'Lewandowski',
+             'Haaland', 'Modric', 'De Bruyne', 'Salah', 'Benzema'],
+    'Age': [36, 38, 25, 31, 35, 23, 37, 32, 30, 34],
+    'Position': ['Forward', 'Forward', 'Forward', 'Forward', 'Forward',
+                 'Forward', 'Midfielder', 'Midfielder', 'Forward', 'Forward'],
+    'Goals': [25, 30, 35, 20, 27, 33, 5, 10, 28, 22],
+    'Salary': [700000, 650000, 600000, 550000, 500000, 580000, 300000, 400000, 450000, 470000]
+}
+
+df = pd.DataFrame(data)
+df.to_csv('players.csv', index=False)
+
+df = pd.read_csv('players.csv')
+
+top_goals = df.sort_values(by='Goals', ascending=False).head(5)
+top_salary = df.sort_values(by='Salary', ascending=False).head(5)
+average_age = df['Age'].mean()
+above_avg_age = df[df['Age'] > average_age]['Name']
+
+print("Top 5 Players by Goals:\n", top_goals[['Name', 'Goals']])
+print("\nTop 5 Players by Salary:\n", top_salary[['Name', 'Salary']])
+print("\nAverage Age of Players:", round(average_age, 2))
+print("\nPlayers Above Average Age:\n", above_avg_age.tolist())
+
+plt.figure(figsize=(8, 5))
+df['Position'].value_counts().plot(kind='bar', color='skyblue')
+plt.title('Player Distribution by Position')
+plt.xlabel('Position')
+plt.ylabel('Number of Players')
+plt.tight_layout()
+plt.show()
