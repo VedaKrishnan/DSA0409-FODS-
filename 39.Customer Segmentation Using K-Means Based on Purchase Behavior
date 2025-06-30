@@ -1,0 +1,29 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+from sklearn.cluster import KMeans
+from sklearn.preprocessing import StandardScaler
+
+data = {
+    'customer_id': range(1, 11),
+    'total_amount_spent': [200, 450, 300, 700, 150, 500, 650, 120, 350, 400],
+    'items_purchased': [2, 5, 3, 7, 1, 6, 6, 1, 4, 5]
+}
+
+df = pd.DataFrame(data)
+
+X = df[['total_amount_spent', 'items_purchased']]
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(X)
+
+kmeans = KMeans(n_clusters=3, random_state=42)
+df['cluster'] = kmeans.fit_predict(X_scaled)
+
+print(df[['customer_id', 'total_amount_spent', 'items_purchased', 'cluster']])
+
+plt.figure(figsize=(8, 5))
+plt.scatter(df['total_amount_spent'], df['items_purchased'], c=df['cluster'], cmap='viridis')
+plt.xlabel('Total Amount Spent')
+plt.ylabel('Items Purchased')
+plt.title('Customer Segmentation Based on Spending and Purchase Behavior')
+plt.grid(True)
+plt.show()
