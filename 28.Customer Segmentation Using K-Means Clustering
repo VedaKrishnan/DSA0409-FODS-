@@ -1,0 +1,26 @@
+import pandas as pd
+from sklearn.cluster import KMeans
+from sklearn.preprocessing import StandardScaler
+import numpy as np
+
+data = {
+    'annual_spending': [500, 700, 200, 1000, 300, 1200, 400, 250, 950, 1100],
+    'visits_per_month': [2, 3, 1, 5, 1, 6, 2, 1, 4, 5]
+}
+
+df = pd.DataFrame(data)
+
+X = df[['annual_spending', 'visits_per_month']]
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(X)
+
+kmeans = KMeans(n_clusters=3, random_state=42)
+kmeans.fit(X_scaled)
+
+spending = float(input("Enter annual spending: "))
+visits = float(input("Enter average visits per month: "))
+new_customer = scaler.transform([[spending, visits]])
+
+segment = kmeans.predict(new_customer)
+
+print("Customer belongs to Segment:", int(segment[0]))
