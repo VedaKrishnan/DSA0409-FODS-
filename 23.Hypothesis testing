@@ -1,0 +1,9 @@
+import matplotlib.pyplot as plt
+control = [65, 70, 68, 72, 66, 69, 71]
+treatment = [75, 80, 78, 79, 77, 76, 82]
+t_stat, p_val = stats.ttest_ind(treatment, control)
+
+plt.boxplot([control, treatment], labels=["Control", "Treatment"])
+plt.title(f"P-value: {p_val:.4f}")
+plt.ylabel("Effectiveness Score")
+plt.show()
