@@ -1,0 +1,13 @@
+import numpy as np
+
+sales_data = np.array([
+    [100, 150, 200],
+    [80,  120, 160],
+    [90,  110, 140]
+])
+
+total_sum = np.sum(sales_data)
+num_elements = sales_data.size
+average_price = total_sum / num_elements
+
+print("Average price of all products sold:", average_price)
