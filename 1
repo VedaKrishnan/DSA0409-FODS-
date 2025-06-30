@@ -1,0 +1,36 @@
+student_scores = [
+    [85, 90, 78, 92],
+    [88, 85, 76, 95],
+    [90, 87, 80, 85],
+    [84, 89, 82, 88]
+]
+
+math_sum = 0
+science_sum = 0
+english_sum = 0
+history_sum = 0
+
+num_students = len(student_scores)
+
+for student in student_scores:
+    math_sum += student[0]
+    science_sum += student[1]
+    english_sum += student[2]
+    history_sum += student[3]
+
+math_avg = math_sum / num_students
+science_avg = science_sum / num_students
+english_avg = english_sum / num_students
+history_avg = history_sum / num_students
+
+subject_averages = {
+    "Math": math_avg,
+    "Science": science_avg,
+    "English": english_avg,
+    "History": history_avg
+}
+
+highest_avg_subject = max(subject_averages, key=subject_averages.get)
+
+print("Average scores for each subject:", subject_averages)
+print("Subject with the highest average score:", highest_avg_subject)
