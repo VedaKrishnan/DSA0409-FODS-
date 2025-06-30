@@ -1,12 +1,21 @@
 import pandas as pd
+import matplotlib.pyplot as plt
 
-
-df = pd.read_csv('customer_data.csv')
-
-
+df = pd.read_csv('customer_data (1).csv')
 q = df['Total Spending'].quantile([0.33, 0.67])
 df['Segment'] = pd.cut(df['Total Spending'], bins=[-1, q[0.33], q[0.67], float('inf')],
                        labels=['Low Spenders', 'Medium Spenders', 'High Spenders'])
 
+# Graph 1: Average age by segment
+df.groupby('Segment')['Age'].mean().plot(kind='bar', title='Average Age by Segment', ylabel='Age', color='skyblue')
+plt.tight_layout()
+plt.show()
 
-print(df.groupby('Segment')['Age'].mean())
+# Graph 2: Low Spenders - Age by Gender with colors
+low = df[df['Segment'] == 'Low Spenders'].groupby('Gender')['Age'].mean()
+
+colors = ['blue' if gender == 'Male' else 'pink' for gender in low.index]
+low.plot(kind='bar', title='Low Spenders: Age by Gender', ylabel='Age', color=colors)
+plt.tight_layout()
+plt.show()
+
