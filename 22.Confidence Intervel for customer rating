@@ -1,0 +1,8 @@
+reviews = pd.read_csv("customer_reviews.csv")
+ratings = reviews['rating']
+mean_rating = np.mean(ratings)
+sem_rating = stats.sem(ratings)
+ci = stats.t.interval(0.95, len(ratings)-1, loc=mean_rating, scale=sem_rating)
+
+print("\nAverage Rating:", round(mean_rating, 2))
+print("95% Confidence Interval for Mean Rating:", (round(ci[0], 2), round(ci[1], 2)))
