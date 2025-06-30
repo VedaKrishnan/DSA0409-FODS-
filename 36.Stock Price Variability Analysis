@@ -1,0 +1,15 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+
+df = pd.read_csv('stock_data.csv')  
+mean_price = df['Close'].mean()
+std_dev = df['Close'].std()
+price_range = df['Close'].max() - df['Close'].min()
+
+print("Mean Closing Price:", round(mean_price, 2))
+print("Standard Deviation:", round(std_dev, 2))
+print("Price Range:", round(price_range, 2))
+
+df['Close'].plot(title='Stock Price Variability Over Time', ylabel='Closing Price', xlabel='Date')
+plt.grid(True)
+plt.show()
