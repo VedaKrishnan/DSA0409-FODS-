@@ -1,0 +1,6 @@
+import pandas as pd
+df = pd.read_csv("employee_data.csv")
+df = df.dropna(subset=['Department']) \
+       .assign(Salary=lambda x: pd.to_numeric(x['Salary'].str.replace(r'[\$,]', '', regex=True), errors='coerce'),
+               First_Name=lambda x: x['Full Name'].str.split().str[0])
+df.to_csv("processed_employee_data.csv",index=False)
