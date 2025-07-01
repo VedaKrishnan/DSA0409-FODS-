@@ -1,13 +1,13 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 
-# Read the CSV file
+
 df = pd.read_csv('post_likes_data.csv')
 
-# Frequency distribution
+
 like_counts = df['Likes'].value_counts().sort_index()
 
-# Plotting the bar chart
+
 plt.figure(figsize=(8, 5))
 like_counts.plot(kind='bar', color='skyblue', edgecolor='black')
 plt.title('Frequency Distribution of Likes')
